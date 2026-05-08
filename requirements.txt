@@ -3,4 +3,3 @@ scipy>=1.14
 networkx>=3.2
 plotly>=5.18
 streamlit>=1.30
-pytest>=7.0

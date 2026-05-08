@@ -13,6 +13,7 @@ streamlit run app.py
 ## Tests
 
 ```
+pip install -r requirements-dev.txt
 pytest tests/
 ```
 
