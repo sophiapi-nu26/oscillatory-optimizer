@@ -167,6 +167,14 @@ with st.sidebar:
 
     seed = st.number_input("seed", value=0, step=1)
 
+    force_all_positive = st.checkbox(
+        "Force all edges positive",
+        value=False,
+        help="Override sign assignment: treat every edge in the generated template "
+             "(after any user edge-flips) as positive. Useful for comparing the "
+             "signed dynamics to the all-friendly baseline on the same topology.",
+    )
+
     if st.button("Reset edge flips"):
         st.session_state["flipped_edges"] = set()
         st.session_state["last_sel_set"] = set()
@@ -291,6 +299,10 @@ for fr in flipped_edges:
         w = A_minus[i, j]
         A_minus_eff[i, j] = A_minus_eff[j, i] = 0
         A_plus_eff[i, j] = A_plus_eff[j, i] = w
+
+if force_all_positive:
+    A_plus_eff = A_plus_eff + A_minus_eff
+    A_minus_eff = np.zeros_like(A_minus_eff)
 
 # ---- info weights ----
 if info_mode == "uniform":
